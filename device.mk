@@ -188,9 +188,9 @@ PRODUCT_PACKAGES += \
     IPACM_cfg.xml \
     IPACM_Filter_cfg.xml
 
-# IR
-PRODUCT_PACKAGES += \
-    android.hardware.ir-service.lineage
+# IR (AOSPA: TODO - the Lineage IR HAL is not available; port or drop)
+#PRODUCT_PACKAGES += \
+#    android.hardware.ir-service.lineage
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.consumerir.xml
@@ -243,15 +243,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml \
     frameworks/native/data/etc/android.hardware.keystore.app_attest_key.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.keystore.app_attest_key.xml
 
-# Lineage Health
-PRODUCT_PACKAGES += \
-    vendor.lineage.health-service.default
-
-$(call soong_config_set_bool,lineage_health,charging_control_supports_bypass,false)
-$(call soong_config_set,lineage_health,fast_charge_node,/sys/class/qcom-battery/fastcharge_enable)
-$(call soong_config_set,lineage_health,fast_charge_value_none,0)
-$(call soong_config_set,lineage_health,fast_charge_value_fast_charge,1)
-$(call soong_config_set,lineage_health,fast_charge_value_super_fast_charge,2)
+# Health (AOSPA: Lineage health HAL not available; charging control
+# handled by the QTI battery driver's charge_control_end_threshold)
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -317,10 +310,10 @@ PRODUCT_PACKAGES += \
     vendor_firmware_mnt_mountpoint \
     vendor_modem_firmware_mountpoint
 
-# Power
+# Power (AOSPA: use the AOSP pixel libperfmgr power HAL; the tree's
+# powerhint.json is consumed unchanged)
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.lineage-libperfmgr \
-    libqti-perfd-client
+    android.hardware.power-service.pixel-libperfmgr
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/power/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
@@ -341,8 +334,6 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
-    hardware/lineage/interfaces/power-libperfmgr \
-    hardware/qcom-caf/common/libqti-perfd-client \
     hardware/xiaomi \
     vendor/qcom/opensource/usb/etc
 
