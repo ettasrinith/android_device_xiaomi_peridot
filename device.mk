@@ -188,9 +188,9 @@ PRODUCT_PACKAGES += \
     IPACM_cfg.xml \
     IPACM_Filter_cfg.xml
 
-# IR (AOSPA: TODO - the Lineage IR HAL is not available; port or drop)
-#PRODUCT_PACKAGES += \
-#    android.hardware.ir-service.lineage
+# IR (Lineage IR HAL vendored into ir/ - self-contained, no external deps)
+PRODUCT_PACKAGES += \
+    android.hardware.ir-service.lineage
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.consumerir.xml
@@ -282,11 +282,8 @@ PRODUCT_COPY_FILES += \
 
 # Overlays
 PRODUCT_PACKAGES += \
-    ApertureOverlayPeridot \
     CarrierConfigOverlayPeridot \
     FrameworkOverlayPeridot \
-    LineageSDKOverlayPeridot \
-    LineageSettingsOverlayPeridot \
     NfcOverlayPeridot \
     SecureElementOverlayPeridot \
     SettingsOverlayPeridot \
