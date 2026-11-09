@@ -6,13 +6,42 @@
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/device_settings_app_name">
 
-    <SwitchPreference
-        android:key="touch_polling_rate"
-        android:title="@string/touch_polling_rate_title"
-        android:summary="@string/touch_polling_rate_summary"
-        android:defaultValue="false" />
+    <Category android:title="@string/touch_category">
+        <SwitchPreference
+            android:key="touch_game_mode"
+            android:title="@string/touch_game_mode_title"
+            android:summary="@string/touch_game_mode_summary"
+            android:defaultValue="false" />
+
+        <ListPreference
+            android:key="touch_expert_mode"
+            android:title="@string/touch_expert_mode_title"
+            android:summary="@string/touch_expert_mode_summary"
+            android:entries="@array/touch_expert_mode_entries"
+            android:entryValues="@array/touch_expert_mode_values"
+            android:defaultValue="0" />
+
+        <SwitchPreference
+            android:key="high_touch_polling_rate"
+            android:title="@string/touch_polling_rate_title"
+            android:summary="@string/touch_polling_rate_summary"
+            android:defaultValue="false" />
+    </Category>
+
+    <Category android:title="@string/display_category">
+        <SwitchPreference
+            android:key="dc_dimming"
+            android:title="@string/dc_dimming_title"
+            android:summary="@string/dc_dimming_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="high_brightness_mode"
+            android:title="@string/hbm_title"
+            android:summary="@string/hbm_summary"
+            android:defaultValue="false" />
+    </Category>
 
 </PreferenceScreen>

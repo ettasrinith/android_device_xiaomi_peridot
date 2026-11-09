@@ -467,4 +467,10 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
 
 # Device settings
-PRODUCT_PACKAGES += \n    XiaomiParts
+PRODUCT_PACKAGES += \
+    XiaomiParts
+
+# Thermal (OSS QTI HAL for the framework; mi_thermald remains as the
+# Xiaomi thermal engine backend)
+PRODUCT_PACKAGES += \
+    android.hardware.thermal-service.qti

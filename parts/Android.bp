@@ -13,6 +13,9 @@ android_app {
     platform_apis: true,
     privileged: true,
     system_ext_specific: true,
+    jni_libs: [
+        "libxiaomiparts_jni",
+    ],
     optimize: {
         enabled: false,
     },

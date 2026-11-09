@@ -11,10 +11,12 @@ import android.content.Context
 import android.content.Intent
 import android.hardware.display.DisplayManager
 import android.os.UserHandle
+import android.provider.Settings
 import android.util.Log
 import android.view.Display
 import android.view.Display.HdrCapabilities
 import com.xiaomi.settings.touch.TouchPollingRateService
+import com.xiaomi.settings.touch.TouchUtils
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
@@ -27,6 +29,18 @@ class BootCompletedReceiver : BroadcastReceiver() {
     }
 
     private fun onLockedBootCompleted(context: Context) {
+        // Re-apply persisted touch modes
+        val gameMode = Settings.Secure.getInt(
+            context.contentResolver, SettingsFragment.KEY_GAME_MODE, 0)
+        if (gameMode != 0) {
+            TouchUtils.setTouchMode(TouchUtils.MODE_GAME_MODE, 1)
+        }
+        val expertMode = Settings.Secure.getInt(
+            context.contentResolver, SettingsFragment.KEY_TOUCH_EXPERT_MODE, 0)
+        if (expertMode != 0) {
+            TouchUtils.setTouchMode(TouchUtils.MODE_EXPERT_MODE, expertMode)
+        }
+
         context.startServiceAsUser(
             Intent(context, TouchPollingRateService::class.java), UserHandle.CURRENT)
 

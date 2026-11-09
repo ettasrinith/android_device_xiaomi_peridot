@@ -1,0 +1,18 @@
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_shared {
+    name: "libxiaomiparts_jni",
+    srcs: ["com_xiaomi_settings_touch_TouchUtils.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+    shared_libs: [
+        "liblog",
+    ],
+    header_libs: [
+        "libnativehelper_header_only",
+    ],
+}
