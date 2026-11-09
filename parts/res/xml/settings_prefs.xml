@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-2024 Paranoid Android
+
+     SPDX-License-Identifier: Apache-2.0
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/device_settings_app_name">
+
+    <SwitchPreference
+        android:key="touch_polling_rate"
+        android:title="@string/touch_polling_rate_title"
+        android:summary="@string/touch_polling_rate_summary"
+        android:defaultValue="false" />
+
+</PreferenceScreen>

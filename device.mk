@@ -465,3 +465,6 @@ PRODUCT_COPY_FILES += \
 
 # Vendor
 $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
+
+# Device settings
+PRODUCT_PACKAGES += \n    XiaomiParts

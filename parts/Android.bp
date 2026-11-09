@@ -1,0 +1,35 @@
+//
+// Copyright (C) 2023 Paranoid Android
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+android_app {
+    name: "XiaomiParts",
+    certificate: "platform",
+    srcs: [
+        "src/**/*.kt",
+    ],
+    platform_apis: true,
+    privileged: true,
+    system_ext_specific: true,
+    optimize: {
+        enabled: false,
+    },
+    static_libs: [
+        "androidx.core_core",
+        "androidx.preference_preference",
+        "SettingsLib",
+    ],
+    required: [
+        "privapp_whitelist_com.xiaomi.settings.xml",
+    ],
+}
+
+prebuilt_etc {
+    name: "privapp_whitelist_com.xiaomi.settings.xml",
+    product_specific: true,
+    sub_dir: "permissions",
+    src: "permissions/privapp_whitelist_com.xiaomi.settings.xml",
+    filename_from_src: true,
+}
