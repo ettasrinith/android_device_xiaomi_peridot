@@ -65,7 +65,7 @@ class TouchPollingRateService : Service() {
     private inner class SettingsObserver(val handler: Handler) : ContentObserver(handler) {
         fun register() {
             applicationContext.contentResolver.registerContentObserver(
-                Settings.Secure.getUriFor(Settings.Secure.TOUCH_POLLING_RATE),
+                Settings.Secure.getUriFor(KEY_TOUCH_POLLING_RATE),
                 false, this
             )
         }
@@ -77,7 +77,7 @@ class TouchPollingRateService : Service() {
         fun update() {
             isPollingEnabled = Settings.Secure.getInt(
                 applicationContext.contentResolver,
-                Settings.Secure.TOUCH_POLLING_RATE, 0
+                KEY_TOUCH_POLLING_RATE, 0
             ) != 0
             handler.post { updatePollingRate() }
         }
@@ -117,6 +117,7 @@ class TouchPollingRateService : Service() {
     companion object {
         private const val TAG = "TouchPollingRate"
         private const val DEBUG = true
+        private const val KEY_TOUCH_POLLING_RATE = "high_touch_polling_rate"
         private const val TOUCH_POLLING_PATH =
             "/sys/devices/virtual/touch/touch_dev/bump_sample_rate"
     }
