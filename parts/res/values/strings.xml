@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-2024 Paranoid Android
+
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- App -->
+    <string name="device_settings_app_name">POCO F6 extras</string>
+    <string name="device_settings_summary">Thermal profiles and touch settings</string>
+
+    <!-- Touch -->
+    <string name="touch_polling_rate_title">High touch polling rate</string>
+    <string name="touch_polling_rate_summary">Raise the touch sampling rate while the screen is on (higher battery drain)</string>
+
+    <!-- Thermal Profile -->
+    <string name="thermalprofile_title">Thermal profile</string>
+    <string name="thermalprofile_default">Default</string>
+    <string name="thermalprofile_game">Game</string>
+    <string name="thermalprofile_unknown">Unknown</string>
+</resources>

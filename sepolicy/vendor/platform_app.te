@@ -1,0 +1,2 @@
+allow platform_app sys_thermal_sconfig:file rw_file_perms;
+allow platform_app vendor_sysfs_touch:file rw_file_perms;
