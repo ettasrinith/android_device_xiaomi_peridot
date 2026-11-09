@@ -7,11 +7,36 @@
 <resources>
     <!-- App -->
     <string name="device_settings_app_name">POCO F6 extras</string>
-    <string name="device_settings_summary">Thermal profiles and touch settings</string>
+    <string name="device_settings_summary">Touch and display settings</string>
 
     <!-- Touch -->
+    <string name="touch_category">Touch</string>
+    <string name="touch_game_mode_title">Game mode</string>
+    <string name="touch_game_mode_summary">Optimize the touch controller for gaming (lower latency, higher sampling)</string>
+    <string name="touch_expert_mode_title">Touch sensitivity</string>
+    <string name="touch_expert_mode_summary">Fine-tune touch expert parameters</string>
     <string name="touch_polling_rate_title">High touch polling rate</string>
     <string name="touch_polling_rate_summary">Raise the touch sampling rate while the screen is on (higher battery drain)</string>
+
+    <string-array name="touch_expert_mode_entries">
+        <item>Off</item>
+        <item>Preset 1</item>
+        <item>Preset 2</item>
+        <item>Preset 3</item>
+    </string-array>
+    <string-array name="touch_expert_mode_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- Display -->
+    <string name="display_category">Display</string>
+    <string name="dc_dimming_title">DC dimming</string>
+    <string name="dc_dimming_summary">Reduce screen flicker at low brightness (may reduce color accuracy)</string>
+    <string name="hbm_title">High brightness mode</string>
+    <string name="hbm_summary">Boost peak brightness beyond the normal maximum</string>
 
     <!-- Thermal Profile -->
     <string name="thermalprofile_title">Thermal profile</string>

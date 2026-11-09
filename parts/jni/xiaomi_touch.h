@@ -1,0 +1,40 @@
+/* Vendored subset of include/uapi/linux/xiaomi_touch.h (GPL-2.0) */
+#ifndef _XIAOMI_TOUCH_UAPI_H
+#define _XIAOMI_TOUCH_UAPI_H
+
+#include <linux/ioctl.h>
+
+enum touch_mode {
+	TOUCH_MODE_SINGLETAP_GESTURE,
+	TOUCH_MODE_DOUBLETAP_GESTURE,
+	TOUCH_MODE_FOD_PRESS_GESTURE,
+	TOUCH_MODE_FOD_FINGER_STATE,
+	TOUCH_MODE_NONUI_MODE,
+	TOUCH_MODE_REPORT_RATE,
+	TOUCH_MODE_FOLD_STATUS,
+	TOUCH_MODE_TOUCH_UP_THRESHOLD,
+	TOUCH_MODE_TOUCH_TOLERANCE,
+	TOUCH_MODE_TOUCH_AIM_SENSITIVITY,
+	TOUCH_MODE_TOUCH_TAP_STABILITY,
+	TOUCH_MODE_TOUCH_EDGE_FILTER,
+	TOUCH_MODE_PANEL_ORIENTATION,
+	TOUCH_MODE_EXPERT_MODE,
+	TOUCH_MODE_GAME_MODE,
+};
+
+enum touch_ioctl {
+	TOUCH_MODE_SET = 0,
+	TOUCH_MODE_GET = 1,
+};
+
+struct touch_mode_request {
+	int mode;
+	int value;
+};
+
+#define TOUCH_IOC_SET_CUR_VALUE \
+	_IOW('T', TOUCH_MODE_SET, struct touch_mode_request)
+#define TOUCH_IOC_GET_CUR_VALUE \
+	_IOR('T', TOUCH_MODE_GET, struct touch_mode_request)
+
+#endif
