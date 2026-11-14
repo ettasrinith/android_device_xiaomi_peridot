@@ -35,8 +35,6 @@
     <string name="display_category">Display</string>
     <string name="dc_dimming_title">DC dimming</string>
     <string name="dc_dimming_summary">Reduce screen flicker at low brightness (may reduce color accuracy)</string>
-    <string name="hbm_title">High brightness mode</string>
-    <string name="hbm_summary">Boost peak brightness beyond the normal maximum</string>
 
     <!-- Thermal Profile -->
     <string name="thermalprofile_title">Thermal profile</string>
