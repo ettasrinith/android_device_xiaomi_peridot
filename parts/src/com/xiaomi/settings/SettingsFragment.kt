@@ -13,6 +13,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.xiaomi.settings.R
+import com.xiaomi.settings.utils.FileUtils
 import com.xiaomi.settings.touch.TouchUtils
 
 /** Main settings screen: touch and display controls. */
@@ -62,21 +63,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<SwitchPreferenceCompat>(KEY_DC_DIMMING)?.apply {
-            val state = TouchUtils.getDispFeature(TouchUtils.FEATURE_ID_DC_DIMMING)
-            if (state >= 0) isChecked = state != 0
+            isChecked = secureInt(ctx, KEY_DC_DIMMING, 0) != 0
             setOnPreferenceChangeListener { _, newValue ->
-                TouchUtils.setDispFeature(
-                    TouchUtils.FEATURE_ID_DC_DIMMING, if (newValue as Boolean) 1 else 0)
-                true
-            }
-        }
-
-        findPreference<SwitchPreferenceCompat>(KEY_HBM)?.apply {
-            val state = TouchUtils.getDispFeature(TouchUtils.FEATURE_ID_HBM)
-            if (state >= 0) isChecked = state != 0
-            setOnPreferenceChangeListener { _, newValue ->
-                TouchUtils.setDispFeature(
-                    TouchUtils.FEATURE_ID_HBM, if (newValue as Boolean) 1 else 0)
+                val enabled = newValue as Boolean
+                securePut(ctx, KEY_DC_DIMMING, if (enabled) 1 else 0)
+                // DC dimming = mi_disp feature id 8 (device-verified formula:
+                // "08 1" enables, "08 0" disables)
+                FileUtils.writeLine(DC_DIM_NODE, if (enabled) "08 1" else "08 0")
                 true
             }
         }
@@ -87,6 +80,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val KEY_GAME_MODE = "touch_game_mode"
         const val KEY_TOUCH_EXPERT_MODE = "touch_expert_mode"
         const val KEY_DC_DIMMING = "dc_dimming"
-        const val KEY_HBM = "high_brightness_mode"
+        const val DC_DIM_NODE =
+            "/sys/devices/virtual/mi_display/disp_feature/disp-DSI-0/disp_param"
     }
 }

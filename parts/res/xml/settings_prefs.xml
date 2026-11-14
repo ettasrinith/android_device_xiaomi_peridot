@@ -36,12 +36,6 @@
             android:title="@string/dc_dimming_title"
             android:summary="@string/dc_dimming_summary"
             android:defaultValue="false" />
-
-        <SwitchPreference
-            android:key="high_brightness_mode"
-            android:title="@string/hbm_title"
-            android:summary="@string/hbm_summary"
-            android:defaultValue="false" />
     </Category>
 
 </PreferenceScreen>
