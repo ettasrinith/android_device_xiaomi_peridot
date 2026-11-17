@@ -95,5 +95,3 @@
 /sys/devices/virtual/touch/touch_dev/palm_sensor u:object_r:sysfs_tp_virtual_prox:s0
 
 # XiaomiParts thermal profile
-/sys/class/thermal/thermal_message/sconfig u:object_r:sys_thermal_sconfig:s0
-/sys/devices/virtual/thermal/thermal_message/sconfig u:object_r:sys_thermal_sconfig:s0
