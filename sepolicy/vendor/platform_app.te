@@ -1,0 +1,5 @@
+# ThermalProfiles (com.android.thermal, android.uid.system -> platform_app)
+# Writes /sys/devices/virtual/thermal/thermal_message/sconfig
+# (labeled sysfs_thermal by sepolicy_vndr generic prefix genfscon)
+allow platform_app sysfs_thermal:dir search;
+allow platform_app sysfs_thermal:file rw_file_perms;
