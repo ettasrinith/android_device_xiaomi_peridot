@@ -481,6 +481,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom-caf/common/libqti-perfd-client \
     hardware/qcom/wlan \
     hardware/qcom-caf/sm8650 \
+    hardware/qcom-caf/sm8650/display \
     hardware/nxp/keymint/generic \
     hardware/nxp/weaver/generic \
     hardware/xiaomi \
