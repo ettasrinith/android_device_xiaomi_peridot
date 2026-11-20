@@ -30,3 +30,11 @@ install_symlink {
     installed_location: "firmware/wlan/qca_cld/qca6750/WCNSS_qcom_cfg.ini",
     symlink_target: "/vendor/etc/wifi/qca6750/WCNSS_qcom_cfg.ini",
 }
+
+prebuilt_etc {
+    name: "peridot_compat_matrix_lineage",
+    src: "configs/vintf/compatibility_matrix.lineage.xml",
+    filename: "compatibility_matrix.lineage.xml",
+    product_specific: true,
+    relative_install_path: "vintf",
+}

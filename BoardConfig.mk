@@ -69,7 +69,7 @@ BOARD_USES_QCOM_HARDWARE := true
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
-    $(DEVICE_PATH)/configs/vintf/device_framework_compat.xml
+
 
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/hidl/framework_manifest.xml
 DEVICE_MANIFEST_FILE := \

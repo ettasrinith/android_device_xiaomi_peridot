@@ -501,3 +501,6 @@ TARGET_COMMON_QTI_COMPONENTS := \
 
 TARGET_USE_AIDL_QTI_BT_AUDIO := true
 TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
+
+# VINTF framework matrix fragment (health + qconfig)
+PRODUCT_PACKAGES += \n    peridot_compat_matrix_lineage
