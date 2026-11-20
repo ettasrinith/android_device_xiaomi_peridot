@@ -173,7 +173,6 @@ vendor/lib64/libsoc_helper.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 vendor/lib64/vendor.qti.hardware.bttpi-V3-ndk.so
-vendor/lib64/vendor.qti.hardware.fm@1.0.so
 
 # CDSP
 vendor/bin/cdsprpcd
@@ -1713,7 +1712,6 @@ vendor/lib64/libqtikeymint.so
 
 # Listen
 odm/lib64/vendor.xiaomi.hardware.mediaeventgatherservice-V1-ndk.so
-vendor/lib64/hw/sound_trigger.primary.pineapple.so
 vendor/lib64/libeai_fixed.so
 vendor/lib64/libeai_float.so
 vendor/lib64/liblistensoundmodel2vendor.so

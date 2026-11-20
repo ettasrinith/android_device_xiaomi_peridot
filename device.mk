@@ -235,9 +235,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.hardware_keystore_V3.xml
 
-PRODUCT_SOONG_NAMESPACES += \
-    hardware/nxp/keymint/generic \
-    hardware/nxp/weaver/generic
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hal_uuid_map.xml:$(TARGET_COPY_OUT_VENDOR)/etc/hal_uuid_map_peridot.xml
@@ -338,15 +335,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/props/odm_GL.prop:$(TARGET_COPY_OUT_ODM)/etc/odm_GL.prop \
     $(LOCAL_PATH)/props/odm_IN.prop:$(TARGET_COPY_OUT_ODM)/etc/odm_IN.prop
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/google/interfaces \
-    hardware/google/pixel/pixelstats \
-    hardware/google/pixel/power-libperfmgr \
-    hardware/qcom-caf/common/libqti-perfd-client \
-    hardware/xiaomi \
-    vendor/qcom/opensource/usb/etc
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -483,3 +471,34 @@ $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
 # Device settings: thermal profile changer (GuidixX-style, sysfs sconfig)
 PRODUCT_PACKAGES += \
     ThermalProfiles
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH) \
+    hardware/google/interfaces \
+    hardware/google/pixel/pixelstats \
+    hardware/google/pixel/power-libperfmgr \
+    hardware/qcom-caf/common/libqti-perfd-client \
+    hardware/qcom/wlan \
+    hardware/qcom-caf/sm8650 \
+    hardware/nxp/keymint/generic \
+    hardware/nxp/weaver/generic \
+    hardware/xiaomi \
+    vendor/qcom/opensource/commonsys/display \
+    vendor/qcom/opensource/commonsys-intf/display \
+    vendor/qcom/opensource/dataservices \
+    vendor/qcom/opensource/usb/etc
+
+# QTI Components (aurora-style; + audio for source-built AGM/PAL)
+TARGET_COMMON_QTI_COMPONENTS := \
+    audio \
+    av \
+    bt \
+    perf \
+    telephony \
+    usb \
+    wfd \
+    wlan
+
+TARGET_USE_AIDL_QTI_BT_AUDIO := true
+TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true

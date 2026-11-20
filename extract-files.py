@@ -27,12 +27,9 @@ from extract_utils.utils import (
 
 namespace_imports = [
     'hardware/qcom-caf/sm8650',
-    'hardware/qcom-caf/wlan',
+    'hardware/qcom-caf/sm8650/display',
+    'hardware/qcom/wlan',
     'hardware/xiaomi',
-    'vendor/qcom/opensource/commonsys/display',
-    'vendor/qcom/opensource/commonsys-intf/display',
-    'vendor/qcom/opensource/dataservices',
-    'vendor/qcom/opensource/display',
 ]
 
 def blob_fixup_graphic_buffer_size(
