@@ -2411,3 +2411,6 @@ vendor/lib64/libqspm-mem-utils-vendor.so
 vendor/lib64/vendor.qti.qspmhal-V1-ndk.so
 vendor/lib64/vendor.qti.qspmhal-impl.so
 
+
+# AGM client (libar-pal dep)
+vendor/lib64/libagmclient.so
