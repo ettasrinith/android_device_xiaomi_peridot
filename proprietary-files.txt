@@ -1375,7 +1375,7 @@ system_ext/lib64/vendor.qti.imsrtpservice@3.1.so
 system_ext/lib64/vendor.qti.qccvndhal_aidl-V1-ndk.so
 vendor/apex/com.google.android.widevine.nonupdatable.apex
 vendor/app/CACertService/CACertService.apk
-vendor/app/CneApp/CneApp.apk;REQUIRED=CneApp.libvndfwk_detect_jni.qti_vendor_symlink
+vendor/app/CneApp/CneApp.apk
 vendor/app/IWlanService/IWlanService.apk
 vendor/app/TimeService/TimeService.apk
 vendor/bin/adpl
