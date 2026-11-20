@@ -1,13 +1,74 @@
 [
-    { "remote": "github", "repository": "ettasrinith/android_kernel_xiaomi_sm8635", "target_path": "kernel/xiaomi/sm8635", "revision": "pure-24.0" },
-    { "remote": "github", "repository": "LineageOS/android_kernel_xiaomi_sm8635-modules", "target_path": "kernel/xiaomi/sm8635-modules", "revision": "lineage-24.0" },
-    { "remote": "github", "repository": "LineageOS/android_kernel_xiaomi_sm8635-devicetrees", "target_path": "kernel/xiaomi/sm8635-devicetrees", "revision": "lineage-24.0" },
-    { "remote": "github", "repository": "TheMuppets/proprietary_vendor_xiaomi_peridot", "target_path": "vendor/xiaomi/peridot", "revision": "lineage-24.0" },
-    { "remote": "github", "repository": "LineageOS/android_hardware_xiaomi", "target_path": "hardware/xiaomi", "revision": "lineage-24.0" },
-    { "remote": "neoteric", "repository": "android_hardware_qcom_audio", "target_path": "hardware/qcom-caf/sm8650/audio/primary-hal", "revision": "cnb-8650" },
-    { "remote": "neoteric", "repository": "android_vendor_qcom_opensource_arpal-lx", "target_path": "hardware/qcom-caf/sm8650/audio/pal", "revision": "cnb-8650" },
-    { "remote": "neoteric", "repository": "android_vendor_qcom_opensource_agm", "target_path": "hardware/qcom-caf/sm8650/audio/agm", "revision": "cnb-8650" },
-    { "remote": "neoteric", "repository": "android_hardware_qcom_display", "target_path": "hardware/qcom-caf/sm8650/display/hal", "revision": "cnb-8650" },
-    { "remote": "neoteric", "repository": "android_hardware_qcom_media", "target_path": "hardware/qcom-caf/sm8650/media", "revision": "cnb-8650" },
-    { "remote": "neoteric", "repository": "android_vendor_qcom_opensource_dataipa", "target_path": "hardware/qcom-caf/sm8650/dataipa", "revision": "cnb" }
+    {
+        "remote": "github",
+        "repository": "ettasrinith/android_kernel_xiaomi_sm8635",
+        "target_path": "kernel/xiaomi/sm8635",
+        "revision": "pure-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "LineageOS/android_kernel_xiaomi_sm8635-modules",
+        "target_path": "kernel/xiaomi/sm8635-modules",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "LineageOS/android_kernel_xiaomi_sm8635-devicetrees",
+        "target_path": "kernel/xiaomi/sm8635-devicetrees",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "TheMuppets/proprietary_vendor_xiaomi_peridot",
+        "target_path": "vendor/xiaomi/peridot",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "LineageOS/android_hardware_xiaomi",
+        "target_path": "hardware/xiaomi",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_hardware_qcom_audio",
+        "target_path": "hardware/qcom-caf/sm8650/audio/primary-hal",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_vendor_qcom_opensource_arpal-lx",
+        "target_path": "hardware/qcom-caf/sm8650/audio/pal",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_vendor_qcom_opensource_agm",
+        "target_path": "hardware/qcom-caf/sm8650/audio/agm",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_hardware_qcom_display",
+        "target_path": "hardware/qcom-caf/sm8650/display/hal",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_hardware_qcom_media",
+        "target_path": "hardware/qcom-caf/sm8650/media",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_vendor_qcom_opensource_dataipa",
+        "target_path": "hardware/qcom-caf/sm8650/dataipa",
+        "revision": "cnb"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_vendor_qcom_opensource_audioreach-graphservices",
+        "target_path": "hardware/qcom-caf/sm8650/audio/graphservices",
+        "revision": "cnb-8650"
+    }
 ]
