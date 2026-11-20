@@ -95,43 +95,25 @@ BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 
-BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
 
-TARGET_KERNEL_ADDITIONAL_FLAGS := TARGET_PRODUCT=$(PRODUCT_DEVICE)
-TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8635
-TARGET_KERNEL_CONFIG := \
-    gki_defconfig \
-    vendor/pineapple_GKI.config \
-    vendor/peridot_GKI.config
+# Kernel (prebuilt from proven crDroid build; aurora-style)
+TARGET_NO_KERNEL_OVERRIDE := true
+TARGET_KERNEL_SOURCE := device/xiaomi/peridot-prebuilt/kernel-headers
+BOARD_PREBUILT_DTBOIMAGE := device/xiaomi/peridot-prebuilt/dtbo.img
+BOARD_PREBUILT_DTBIMAGE_DIR := device/xiaomi/peridot-prebuilt/dtb
 
-BOARD_KERNEL_CMDLINE := \
-    sysctl.kernel.firmware_config.force_sysfs_fallback=1 \
-    swinfo.fingerprint=peridot:$(NEOTERIC_VERSION) \
-    mtdoops.fingerprint=peridot:$(NEOTERIC_VERSION)
+PRODUCT_COPY_FILES +=     device/xiaomi/peridot-prebuilt/kernel:kernel
 
-BOARD_BOOTCONFIG := \
-    androidboot.hardware=qcom \
-    androidboot.memcg=1 \
-    androidboot.usbcontroller=a600000.dwc3 \
-    androidboot.load_modules_parallel=true \
-    androidboot.vendor.qspa=true \
-    androidboot.hypervisor.protected_vm.supported=false
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard device/xiaomi/peridot-prebuilt/vendor_ramdisk/*.ko)
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat device/xiaomi/peridot-prebuilt/vendor_ramdisk/modules.load))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat device/xiaomi/peridot-prebuilt/vendor_ramdisk/modules.load.recovery))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := device/xiaomi/peridot-prebuilt/vendor_ramdisk/modules.blocklist
 
-# Kernel modules
-first_stage_modules := $(strip $(shell cat $(TARGET_KERNEL_SOURCE)/modules.list.msm.pineapple $(DEVICE_PATH)/modules/modules.list.first_stage))
-second_stage_modules := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.list.second_stage))
-vendor_dlkm_modules := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.list.vendor_dlkm))
-system_dlkm_modules := $(strip $(shell sed 's/#.*$$//;/^$$/d;s|.*/||' $(DEVICE_PATH)/modules/modules.list.system_dlkm))
+BOARD_VENDOR_KERNEL_MODULES := $(wildcard device/xiaomi/peridot-prebuilt/vendor_dlkm/*.ko)
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat device/xiaomi/peridot-prebuilt/vendor_dlkm/modules.load))
+BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := device/xiaomi/peridot-prebuilt/vendor_dlkm/modules.blocklist
 
-BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(system_dlkm_modules)
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(first_stage_modules)
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(first_stage_modules) $(second_stage_modules)
-BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.pineapple
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(second_stage_modules) $(vendor_dlkm_modules)
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
-
-BOOT_KERNEL_MODULES := $(first_stage_modules) $(second_stage_modules)
-SYSTEM_KERNEL_MODULES := $(BOARD_SYSTEM_KERNEL_MODULES_LOAD)
+PRODUCT_COPY_FILES +=     $(call find-copy-subdir-files,*,device/xiaomi/peridot-prebuilt/system_dlkm/lib/modules/android17-6.1,$(TARGET_COPY_OUT_SYSTEM_DLKM)/lib/modules/android17-6.1)
 
 TARGET_KERNEL_EXT_MODULE_ROOT := kernel/xiaomi/sm8635-modules
 TARGET_KERNEL_EXT_MODULES := \
