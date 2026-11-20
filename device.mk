@@ -21,7 +21,6 @@ $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk
 
 # Qualcomm
 $(call soong_config_set,rfs,mpss_firmware_symlink_target,modem_firmware)
-$(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
@@ -186,7 +185,7 @@ PRODUCT_PACKAGES += \
 
 # IR
 PRODUCT_PACKAGES += \
-    android.hardware.ir-service.lineage
+    android.hardware.ir-service.example
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.consumerir.xml
@@ -322,7 +321,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.lineage-libperfmgr \
+    android.hardware.power-service \
     libqti-perfd-client
 
 PRODUCT_COPY_FILES += \
@@ -345,7 +344,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/interfaces \
     hardware/google/pixel/pixelstats \
     hardware/google/pixel/power-libperfmgr \
-    hardware/lineage/interfaces/power-libperfmgr \
     hardware/qcom-caf/common/libqti-perfd-client \
     hardware/xiaomi \
     vendor/qcom/opensource/usb/etc
