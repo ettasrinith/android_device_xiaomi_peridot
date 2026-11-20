@@ -335,6 +335,8 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/libqms_client.so',
     ): blob_fixup()
         .add_needed('libbinder_shim.so'),
+    'vendor/lib64/libdisplaydebug.so': blob_fixup()
+        .remove_needed('android.hardware.graphics.composer3-V2-ndk.so'),
     'vendor/lib64/libqcodec2_core.so': blob_fixup()
         .add_needed('libcodec2_shim.so'),
     'vendor/lib64/libqcrilNrVoiceModule.so': blob_fixup()
