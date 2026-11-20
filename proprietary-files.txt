@@ -2416,3 +2416,6 @@ vendor/lib64/vendor.qti.qspmhal-impl.so
 vendor/lib64/libagmclient.so
 vendor/lib64/vendor.qti.hardware.AGMIPC@1.0.so
 vendor/lib64/vendor.qti.hardware.pal@1.0.so
+
+# Sound trigger (DSP hotword) - restored
+vendor/lib64/hw/sound_trigger.primary.pineapple.so
