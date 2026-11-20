@@ -80,7 +80,6 @@ Output: `out/target/product/peridot/Neoteric-OS_peridot-5.0-<date>.zip`
 <manifest>
   <remote name="ett" fetch="https://github.com/ettasrinith" />
   <remote name="los" fetch="https://github.com/LineageOS" revision="lineage-24.0" />
-  <remote name="guidix" fetch="https://github.com/GuidixX" revision="17" />
   <remote name="neohal" fetch="https://github.com/Neoteric-OS" />
 
   <project path="device/xiaomi/peridot" name="android_device_xiaomi_peridot" remote="ett" revision="cnb" />
@@ -90,7 +89,6 @@ Output: `out/target/product/peridot/Neoteric-OS_peridot-5.0-<date>.zip`
   <project path="kernel/xiaomi/sm8635-modules" name="android_kernel_xiaomi_sm8635-modules" remote="los" />
   <project path="kernel/xiaomi/sm8635-devicetrees" name="android_kernel_xiaomi_sm8635-devicetrees" remote="los" />
   <project path="hardware/xiaomi" name="android_hardware_xiaomi" remote="los" />
-  <project path="packages/apps/XiaomiParts" name="packages_apps_XiaomiParts" remote="guidix" />
 
   <project path="hardware/qcom-caf/sm8650/display" name="android_hardware_qcom_display" remote="neohal" revision="cnb-8650" />
 </manifest>
@@ -109,7 +107,6 @@ Repos this device pulls in through Neotic's dependency system:
 | `ettasrinith/android_device_xiaomi_peridot-prebuilt` | `device/xiaomi/peridot-prebuilt` | `main` |
 | `ettasrinith/android_device_xiaomi_peridot-interfaces` | `device/xiaomi/peridot-interfaces` | `main` |
 | `Neoteric-OS/android_hardware_qcom_display` | `hardware/qcom-caf/sm8650/display` | `cnb-8650` |
-| `GuidixX/packages_apps_XiaomiParts` | `packages/apps/XiaomiParts` | `17` |
 
 ---
 

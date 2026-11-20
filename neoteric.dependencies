@@ -1,10 +1,44 @@
 [
-    { "remote": "github", "repository": "ettasrinith/android_kernel_xiaomi_sm8635", "target_path": "kernel/xiaomi/sm8635", "revision": "pure-24.0" },
-    { "remote": "github", "repository": "LineageOS/android_kernel_xiaomi_sm8635-modules", "target_path": "kernel/xiaomi/sm8635-modules", "revision": "lineage-24.0" },
-    { "remote": "github", "repository": "LineageOS/android_kernel_xiaomi_sm8635-devicetrees", "target_path": "kernel/xiaomi/sm8635-devicetrees", "revision": "lineage-24.0" },
-    { "remote": "github", "repository": "LineageOS/android_hardware_xiaomi", "target_path": "hardware/xiaomi", "revision": "lineage-24.0" },
-    { "remote": "github", "repository": "ettasrinith/android_device_xiaomi_peridot-prebuilt", "target_path": "device/xiaomi/peridot-prebuilt", "revision": "main" },
-    { "remote": "github", "repository": "ettasrinith/android_device_xiaomi_peridot-interfaces", "target_path": "device/xiaomi/peridot-interfaces", "revision": "main" },
-    { "remote": "neoteric", "repository": "android_hardware_qcom_display", "target_path": "hardware/qcom-caf/sm8650/display", "revision": "cnb-8650" },
-    { "remote": "github", "repository": "GuidixX/packages_apps_XiaomiParts", "target_path": "packages/apps/XiaomiParts", "revision": "17" }
+    {
+        "remote": "github",
+        "repository": "ettasrinith/android_kernel_xiaomi_sm8635",
+        "target_path": "kernel/xiaomi/sm8635",
+        "revision": "pure-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "LineageOS/android_kernel_xiaomi_sm8635-modules",
+        "target_path": "kernel/xiaomi/sm8635-modules",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "LineageOS/android_kernel_xiaomi_sm8635-devicetrees",
+        "target_path": "kernel/xiaomi/sm8635-devicetrees",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "LineageOS/android_hardware_xiaomi",
+        "target_path": "hardware/xiaomi",
+        "revision": "lineage-24.0"
+    },
+    {
+        "remote": "github",
+        "repository": "ettasrinith/android_device_xiaomi_peridot-prebuilt",
+        "target_path": "device/xiaomi/peridot-prebuilt",
+        "revision": "main"
+    },
+    {
+        "remote": "github",
+        "repository": "ettasrinith/android_device_xiaomi_peridot-interfaces",
+        "target_path": "device/xiaomi/peridot-interfaces",
+        "revision": "main"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_hardware_qcom_display",
+        "target_path": "hardware/qcom-caf/sm8650/display",
+        "revision": "cnb-8650"
+    }
 ]
