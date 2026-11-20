@@ -491,7 +491,6 @@ PRODUCT_SOONG_NAMESPACES += \
 
 # QTI Components (aurora-style; + audio for source-built AGM/PAL)
 TARGET_COMMON_QTI_COMPONENTS := \
-    audio \
     av \
     bt \
     perf \

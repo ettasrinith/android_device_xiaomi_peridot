@@ -736,7 +736,6 @@ odm/firmware/CAMERA_ICP.b20
 odm/firmware/CAMERA_ICP.elf
 odm/firmware/CAMERA_ICP.mbn
 odm/firmware/CAMERA_ICP.mdt
-odm/firmware/CAMERA_ICP.mdt
 odm/firmware/CAMERA_ICP_170.elf
 odm/firmware/Conf_MultipleTest_TianMa.ini
 odm/firmware/Conf_MultipleTest_TianMa2.ini
@@ -2402,7 +2401,6 @@ vendor/lib64/vendor.qti.hardware.AGMIPC@1.0-impl.so
 vendor/lib64/hw/audio.primary.pineapple.so
 vendor/lib64/libar-pal.so
 vendor/lib64/libpalclient.so
-vendor/lib64/vendor.qti.hardware.pal@1.0-impl.so
 
 # QSPM (adreno deps)
 vendor/bin/vendor.qti.qspmhal-service
@@ -2412,4 +2410,4 @@ vendor/etc/vintf/manifest/vendor.qti.qspmhal-service.xml
 vendor/lib64/libqspm-mem-utils-vendor.so
 vendor/lib64/vendor.qti.qspmhal-V1-ndk.so
 vendor/lib64/vendor.qti.qspmhal-impl.so
-vendor/lib64/vendor.qti.qspmhal@1.0.so
+
