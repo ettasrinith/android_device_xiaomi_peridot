@@ -123,7 +123,14 @@ BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 
 # user builds match the stock EROFS layout; userdebug stays ext4 with
 # headroom for development (peridot-clo reference pattern)
-$(foreach p, $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST)),     $(if $(filter user,$(TARGET_BUILD_VARIANT)),         $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs),         $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4)         $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := 104857600)     )     $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))) )
+$(foreach p, $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST)), \
+    $(if $(filter user,$(TARGET_BUILD_VARIANT)), \
+        $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs), \
+        $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4) \
+        $(eval BOARD_$(p)IMAGE_PARTITION_RESERVED_SIZE := 104857600) \
+    ) \
+    $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))) \
+)
 
 TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_PRODUCT := product
