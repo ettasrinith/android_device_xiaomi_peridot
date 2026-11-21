@@ -1,0 +1,4 @@
+# Subsystem-name discovery only; no firmware/state/restart writes.
+allow { vendor_hal_gnss_qti vendor_per_mgr vendor_per_proxy vendor_rmt_storage vendor_tlpd vendor_nicmd vendor_port-bridge vendor_ims_service vendor_hal_dpmQmiMgr vendor_qmipriod vendor_shsusrd } vendor_sysfs_remoteproc_info:dir { getattr open read search };
+allow { vendor_hal_gnss_qti vendor_per_mgr vendor_per_proxy vendor_rmt_storage vendor_tlpd vendor_nicmd vendor_port-bridge vendor_ims_service vendor_hal_dpmQmiMgr vendor_qmipriod vendor_shsusrd } vendor_sysfs_remoteproc_info:file { getattr open read };
+allow { vendor_hal_gnss_qti vendor_per_mgr vendor_per_proxy vendor_rmt_storage vendor_tlpd vendor_nicmd vendor_port-bridge vendor_ims_service vendor_hal_dpmQmiMgr vendor_qmipriod vendor_shsusrd } vendor_sysfs_remoteproc_info:lnk_file { getattr read };

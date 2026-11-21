@@ -1,0 +1,3 @@
+# Only the QRTR diagnostic directory, never generic vendor_data_file.
+allow vendor_qrtr vendor_peridot_qrtr_data_file:dir { search open getattr write add_name };
+allow vendor_qrtr vendor_peridot_qrtr_data_file:file { create open write setattr getattr };

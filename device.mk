@@ -35,6 +35,17 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_vendor=ext4 \
     POSTINSTALL_OPTIONAL_vendor=true
 
+# Post-install fs matches the partition fs of the target variant
+ifeq ($(TARGET_BUILD_VARIANT),user)
+POSTINSTALL_FS_TYPE := erofs
+else
+POSTINSTALL_FS_TYPE := ext4
+endif
+
+# DRM: expose liboemcrypto to the vendor linker namespace (peridot-clo ref)
+PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
+    $(LOCAL_PATH)/configs/linker/vendor-linker.config.json
+
 PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script

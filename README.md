@@ -15,6 +15,7 @@ This is a full **LineageOS 24.0 → Neotic cnb conversion** of the peridot devic
 | Audio | 100% blobs (AGM/PAL/ar-pal stack from the firmware). `TARGET_COMMON_QTI_COMPONENTS` deliberately excludes `audio` — the `vendor/qcom/common` audio component needs CAF source-built AGM which Neotic trees don't ship |
 | CAF display | Neotic `android_hardware_qcom_display` `cnb-8650` at `hardware/qcom-caf/sm8650/display` (`QCOM_SOONG_NAMESPACE`), namespace imports + `PRODUCT_SOONG_NAMESPACES` wired for it |
 | Blobs | Fresh extraction from HyperOS OS3.0.304.0; list reconciled against the LOS peridot list — everything `vendor/qcom/common` provides was swept out, device-specific blobs restored, symbol closure verified (zero unresolved DT_NEEDED) |
+| Reference | Cross-checked against the CLO-style peridot port (`peridot-clo`, Project Mia) for framework-matrix coverage, CLO-system sepolicy domains, and FS/OTA policy |
 | VINTF | `configs/vintf/compatibility_matrix.lineage.xml` shipped as a **product VINTF fragment** via the `peridot_compat_matrix_lineage` `prebuilt_etc` soong module (see below) |
 | QTI components | `TARGET_COMMON_QTI_COMPONENTS := av bt perf telephony usb wfd wlan` (no audio), `TARGET_USE_AIDL_QTI_BT_AUDIO := true`, `TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true` |
 
