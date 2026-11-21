@@ -97,57 +97,12 @@ BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 
 
-# Kernel (prebuilt from proven crDroid build; aurora-style)
-TARGET_NO_KERNEL_OVERRIDE := true
-TARGET_KERNEL_SOURCE := device/xiaomi/peridot-prebuilt/kernel-headers
-BOARD_PREBUILT_DTBOIMAGE := device/xiaomi/peridot-prebuilt/dtbo.img
-BOARD_PREBUILT_DTBIMAGE_DIR := device/xiaomi/peridot-prebuilt/dtb
+# Kernel cmdline/bootconfig (peridot, from the LOS lineage)
+BOARD_KERNEL_CMDLINE :=     sysctl.kernel.firmware_config.force_sysfs_fallback=1     swinfo.fingerprint=peridot:$(NEOTERIC_VERSION)     mtdoops.fingerprint=peridot:$(NEOTERIC_VERSION)
 
-PRODUCT_COPY_FILES +=     device/xiaomi/peridot-prebuilt/kernel:kernel
+BOARD_BOOTCONFIG :=     androidboot.hardware=qcom     androidboot.memcg=1     androidboot.usbcontroller=a600000.dwc3     androidboot.load_modules_parallel=true     androidboot.vendor.qspa=true     androidboot.hypervisor.protected_vm.supported=false
 
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard device/xiaomi/peridot-prebuilt/vendor_ramdisk/*.ko)
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat device/xiaomi/peridot-prebuilt/vendor_ramdisk/modules.load))
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat device/xiaomi/peridot-prebuilt/vendor_ramdisk/modules.load.recovery))
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := device/xiaomi/peridot-prebuilt/vendor_ramdisk/modules.blocklist
-
-BOARD_VENDOR_KERNEL_MODULES := $(wildcard device/xiaomi/peridot-prebuilt/vendor_dlkm/*.ko)
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat device/xiaomi/peridot-prebuilt/vendor_dlkm/modules.load))
-BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := device/xiaomi/peridot-prebuilt/vendor_dlkm/modules.blocklist
-
-PRODUCT_COPY_FILES +=     $(call find-copy-subdir-files,*,device/xiaomi/peridot-prebuilt/system_dlkm/lib/modules/android17-6.1,$(TARGET_COPY_OUT_SYSTEM_DLKM)/lib/modules/android17-6.1)
-
-TARGET_KERNEL_EXT_MODULE_ROOT := kernel/xiaomi/sm8635-modules
-TARGET_KERNEL_EXT_MODULES := \
-    qcom/opensource/mmrm-driver \
-    qcom/opensource/mm-drivers/hw_fence \
-    qcom/opensource/mm-drivers/msm_ext_display \
-    qcom/opensource/mm-drivers/sync_fence \
-    qcom/opensource/securemsm-kernel \
-    qcom/opensource/audio-kernel \
-    qcom/opensource/synx-kernel \
-    qcom/opensource/camera-kernel \
-    qcom/opensource/datarmnet-ext/mem \
-    qcom/opensource/dataipa/drivers/platform/msm \
-    qcom/opensource/datarmnet/core \
-    qcom/opensource/datarmnet-ext/aps \
-    qcom/opensource/datarmnet-ext/offload \
-    qcom/opensource/datarmnet-ext/shs \
-    qcom/opensource/datarmnet-ext/perf \
-    qcom/opensource/datarmnet-ext/perf_tether \
-    qcom/opensource/datarmnet-ext/sch \
-    qcom/opensource/datarmnet-ext/wlan \
-    qcom/opensource/display-drivers/msm \
-    qcom/opensource/dsp-kernel \
-    qcom/opensource/eva-kernel \
-    qcom/opensource/video-driver \
-    qcom/opensource/graphics-kernel \
-    qcom/opensource/wlan/platform \
-    qcom/opensource/wlan/qcacld-3.0/.qca6750 \
-    qcom/opensource/bt-kernel \
-    qcom/opensource/spu-kernel \
-    qcom/opensource/mm-sys-kernel/ubwcp \
-    qcom/opensource/touch-drivers \
-    nxp/opensource/driver
+include $(DEVICE_PATH)/kernel/kernel-platform.mk
 
 # Partitions
 

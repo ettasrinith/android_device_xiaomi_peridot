@@ -11,7 +11,7 @@ This is a full **LineageOS 24.0 → Neotic cnb conversion** of the peridot devic
 | Area | Change |
 |---|---|
 | Product makefile | `peridot.mk` inherits `vendor/neoteric/target/product/neoteric-target.mk`, fingerprint bumped to `OS3.0.304.0.WNPMIXM` |
-| Kernel | **Prebuilt** (see `device/xiaomi/peridot-prebuilt`) — Neotic convention, no kernel source build. Sources stay pinned for reference via `neoteric.dependencies` |
+| Kernel | **Prebuilt** via `kernel/kernel-platform.mk` (fuxi/ishtar cnb pattern) — no kernel source build. Sources stay pinned for reference via `neoteric.dependencies` |
 | Audio | 100% blobs (AGM/PAL/ar-pal stack from the firmware). `TARGET_COMMON_QTI_COMPONENTS` deliberately excludes `audio` — the `vendor/qcom/common` audio component needs CAF source-built AGM which Neotic trees don't ship |
 | CAF display | Neotic `android_hardware_qcom_display` `cnb-8650` at `hardware/qcom-caf/sm8650/display` (`QCOM_SOONG_NAMESPACE`), namespace imports + `PRODUCT_SOONG_NAMESPACES` wired for it |
 | Blobs | Fresh extraction from HyperOS OS3.0.304.0; list reconciled against the LOS peridot list — everything `vendor/qcom/common` provides was swept out, device-specific blobs restored, symbol closure verified (zero unresolved DT_NEEDED) |

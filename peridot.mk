@@ -26,8 +26,8 @@ PRODUCT_SYSTEM_NAME := peridot_global
 PRODUCT_SYSTEM_DEVICE := peridot
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BuildDesc="peridot_global-user 14 UKQ1.240624.001 OS3.0.304.0.WNPMIXM release-keys" \
-    BuildFingerprint=POCO/peridot_global/peridot:14/UKQ1.240624.001/OS3.0.304.0.WNPMIXM:user/release-keys \
+    BuildDesc="peridot_global-user 16 BP2A.250605.031.A3 OS3.0.304.0.WNPMIXM release-keys" \
+    BuildFingerprint=POCO/peridot_global/peridot:16/BP2A.250605.031.A3/OS3.0.304.0.WNPMIXM:user/release-keys \
     DeviceName=$(PRODUCT_SYSTEM_DEVICE) \
     DeviceProduct=$(PRODUCT_SYSTEM_NAME)
 
