@@ -84,7 +84,6 @@ Output: `out/target/product/peridot/Neoteric-OS_peridot-5.0-<date>.zip`
 
   <project path="device/xiaomi/peridot" name="android_device_xiaomi_peridot" remote="ett" revision="cnb" />
   <project path="device/xiaomi/peridot-prebuilt" name="android_device_xiaomi_peridot-prebuilt" remote="ett" revision="main" />
-  <project path="device/xiaomi/peridot-interfaces" name="android_device_xiaomi_peridot-interfaces" remote="ett" revision="main" />
   <project path="kernel/xiaomi/sm8635" name="android_kernel_xiaomi_sm8635" remote="ett" revision="pure-24.0" />
   <project path="kernel/xiaomi/sm8635-modules" name="android_kernel_xiaomi_sm8635-modules" remote="los" />
   <project path="kernel/xiaomi/sm8635-devicetrees" name="android_kernel_xiaomi_sm8635-devicetrees" remote="los" />
@@ -105,7 +104,6 @@ Repos this device pulls in through Neotic's dependency system:
 | `LineageOS/android_kernel_xiaomi_sm8635-devicetrees` | `kernel/xiaomi/sm8635-devicetrees` | `lineage-24.0` |
 | `LineageOS/android_hardware_xiaomi` | `hardware/xiaomi` | `lineage-24.0` |
 | `ettasrinith/android_device_xiaomi_peridot-prebuilt` | `device/xiaomi/peridot-prebuilt` | `main` |
-| `ettasrinith/android_device_xiaomi_peridot-interfaces` | `device/xiaomi/peridot-interfaces` | `main` |
 | `Neoteric-OS/android_hardware_qcom_display` | `hardware/qcom-caf/sm8650/display` | `cnb-8650` |
 
 ---
@@ -113,7 +111,7 @@ Repos this device pulls in through Neotic's dependency system:
 ## Companion trees
 
 - **[`android_device_xiaomi_peridot-prebuilt`](https://github.com/ettasrinith/android_device_xiaomi_peridot-prebuilt)** — prebuilt kernel, DTB/DTBO, vendor_dlkm / vendor_ramdisk / system_dlkm modules, kernel-headers (see its README)
-- **[`android_device_xiaomi_peridot-interfaces`](https://github.com/ettasrinith/android_device_xiaomi_peridot-interfaces)** — `vendor.lineage.touch` AIDL interface + NFC peripheralstate/mink headers
+- `interfaces/` — `vendor.lineage.touch` AIDL interface + NFC mink/peripheralstate headers, inlined aurora-style
 - **[`android_vendor_xiaomi_peridot`](https://github.com/ettasrinith/android_vendor_xiaomi_peridot)** *(private)* — vendor blobs
 
 ## Credits

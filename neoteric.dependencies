@@ -30,12 +30,6 @@
         "revision": "main"
     },
     {
-        "remote": "github",
-        "repository": "ettasrinith/android_device_xiaomi_peridot-interfaces",
-        "target_path": "device/xiaomi/peridot-interfaces",
-        "revision": "main"
-    },
-    {
         "remote": "neoteric",
         "repository": "android_hardware_qcom_display",
         "target_path": "hardware/qcom-caf/sm8650/display",
