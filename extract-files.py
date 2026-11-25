@@ -27,12 +27,8 @@ from extract_utils.utils import (
 
 namespace_imports = [
     'hardware/qcom-caf/sm8650',
-    'hardware/qcom-caf/wlan',
+    'hardware/qcom-caf/sm8650/display',
     'hardware/xiaomi',
-    'vendor/qcom/opensource/commonsys/display',
-    'vendor/qcom/opensource/commonsys-intf/display',
-    'vendor/qcom/opensource/dataservices',
-    'vendor/qcom/opensource/display',
 ]
 
 def blob_fixup_graphic_buffer_size(
@@ -88,8 +84,6 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
-    'system/framework/WfdCommon.jar': blob_fixup()
-        .apktool_patch('blob-patches/WfdCommon.patch'),
     'system_ext/etc/init/qspa_system.rc': blob_fixup()
         .regex_replace(r'\$\{ro\.boot\.vendor\.qspa:-default\}', 'default'),
     'system_ext/etc/vintf/manifest/vendor.qti.qesdsys.service.xml': blob_fixup()
@@ -341,6 +335,8 @@ blob_fixups: blob_fixups_user_type = {
         'vendor/lib64/libqms_client.so',
     ): blob_fixup()
         .add_needed('libbinder_shim.so'),
+    'vendor/lib64/libdisplaydebug.so': blob_fixup()
+        .remove_needed('android.hardware.graphics.composer3-V2-ndk.so'),
     'vendor/lib64/libqcodec2_core.so': blob_fixup()
         .add_needed('libcodec2_shim.so'),
     'vendor/lib64/libqcrilNrVoiceModule.so': blob_fixup()
@@ -374,7 +370,6 @@ module = ExtractUtilsModule(
     blob_fixups=blob_fixups,
     lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
-    add_firmware_proprietary_file=True,
 )
 
 if __name__ == '__main__':
