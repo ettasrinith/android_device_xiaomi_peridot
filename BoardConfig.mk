@@ -7,6 +7,7 @@
 DEVICE_PATH := device/xiaomi/peridot
 
 BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # A/B
 AB_OTA_UPDATER := true
@@ -40,6 +41,7 @@ AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
 AUDIO_FEATURE_ENABLED_DTS_EAGLE := false
 AUDIO_FEATURE_ENABLED_PAL_HIDL := true
 AUDIO_FEATURE_ENABLED_AGM_HIDL := true
+AUDIO_FEATURE_ENABLED_LSM_HIDL := true
 AUDIO_FEATURE_ENABLED_HW_ACCELERATED_EFFECTS := false
 AUDIO_FEATURE_ENABLED_DLKM := true
 AUDIO_FEATURE_ENABLED_INSTANCE_ID := true
@@ -49,9 +51,15 @@ AUDIO_FEATURE_ENABLED_SVA_MULTI_STAGE := true
 BOARD_SUPPORTS_SOUND_TRIGGER := true
 TARGET_USES_QCOM_MM_AUDIO := true
 
+# Vendor blobs provide these; skip the conflicting source-built variants from
+# hardware/qcom-caf/sm8650/audio.
 TARGET_PROVIDES_AUDIO_HAL := true
 TARGET_PROVIDES_LIBAGM := true
 TARGET_PROVIDES_LIBAR_PAL := true
+
+# XiaomiEuicc declares a build-time dependency on EuiccPolicy, which is not
+# part of this blob set; do not fail the build over it.
+BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := peridot
@@ -68,15 +76,14 @@ BOARD_USES_QCOM_HARDWARE := true
 
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml
+    hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
+
 
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/configs/hidl/framework_manifest.xml
-DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml
 DEVICE_MANIFEST_FILE := \
     $(DEVICE_PATH)/configs/hidl/manifest_vendor.xml \
-    hardware/qcom-caf/sm8650/audio/primary-hal/configs/common/manifest_non_qmaa.xml \
-    hardware/qcom-caf/sm8650/audio/primary-hal/configs/common/manifest_non_qmaa_extn.xml
+    $(DEVICE_PATH)/configs/hidl/manifest_non_qmaa.xml \
+    $(DEVICE_PATH)/configs/hidl/manifest_non_qmaa_extn.xml
 
 ODM_MANIFEST_FILES := $(DEVICE_PATH)/configs/hidl/manifest_odm.xml
 
@@ -97,79 +104,20 @@ BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_INIT_BOOT_HEADER_VERSION := 4
 BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 
-BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
 
-TARGET_KERNEL_ADDITIONAL_FLAGS := TARGET_PRODUCT=$(PRODUCT_DEVICE)
-TARGET_KERNEL_SOURCE := kernel/xiaomi/sm8635
-TARGET_KERNEL_CONFIG := \
-    gki_defconfig \
-    vendor/pineapple_GKI.config \
-    vendor/peridot_GKI.config
-
+# Kernel cmdline/bootconfig (peridot CLO: matches stock HyperOS vendor_boot
+# cmdline, neo-peridot-vic and peridot-clo -- video=vfb framebuffer is
+# required for the stock kernel's display/console path)
 BOARD_KERNEL_CMDLINE := \
-    sysctl.kernel.firmware_config.force_sysfs_fallback=1 \
-    swinfo.fingerprint=peridot:$(LINEAGE_VERSION) \
-    mtdoops.fingerprint=peridot:$(LINEAGE_VERSION)
+    video=vfb:640x400,bpp=32,memsize=3072000 \
+    swinfo.fingerprint=peridot:$(NEOTERIC_VERSION) \
+    mtdoops.fingerprint=peridot:$(NEOTERIC_VERSION)
 
-BOARD_BOOTCONFIG := \
-    androidboot.hardware=qcom \
-    androidboot.memcg=1 \
-    androidboot.usbcontroller=a600000.dwc3 \
-    androidboot.load_modules_parallel=true \
-    androidboot.vendor.qspa=true \
-    androidboot.hypervisor.protected_vm.supported=false
+BOARD_BOOTCONFIG :=     androidboot.hardware=qcom     androidboot.memcg=1     androidboot.usbcontroller=a600000.dwc3     androidboot.load_modules_parallel=true     androidboot.vendor.qspa=true     androidboot.hypervisor.protected_vm.supported=false
 
-# Kernel modules
-first_stage_modules := $(strip $(shell cat $(TARGET_KERNEL_SOURCE)/modules.list.msm.pineapple $(DEVICE_PATH)/modules/modules.list.first_stage))
-second_stage_modules := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.list.second_stage))
-vendor_dlkm_modules := $(strip $(shell cat $(DEVICE_PATH)/modules/modules.list.vendor_dlkm))
-system_dlkm_modules := $(strip $(shell sed 's/#.*$$//;/^$$/d;s|.*/||' $(DEVICE_PATH)/modules/modules.list.system_dlkm))
-
-BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(system_dlkm_modules)
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(first_stage_modules)
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(first_stage_modules) $(second_stage_modules)
-BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.pineapple
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(second_stage_modules) $(vendor_dlkm_modules)
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
-
-BOOT_KERNEL_MODULES := $(first_stage_modules) $(second_stage_modules)
-SYSTEM_KERNEL_MODULES := $(BOARD_SYSTEM_KERNEL_MODULES_LOAD)
-
-TARGET_KERNEL_EXT_MODULE_ROOT := kernel/xiaomi/sm8635-modules
-TARGET_KERNEL_EXT_MODULES := \
-    qcom/opensource/mmrm-driver \
-    qcom/opensource/mm-drivers/hw_fence \
-    qcom/opensource/mm-drivers/msm_ext_display \
-    qcom/opensource/mm-drivers/sync_fence \
-    qcom/opensource/securemsm-kernel \
-    qcom/opensource/audio-kernel \
-    qcom/opensource/synx-kernel \
-    qcom/opensource/camera-kernel \
-    qcom/opensource/datarmnet-ext/mem \
-    qcom/opensource/dataipa/drivers/platform/msm \
-    qcom/opensource/datarmnet/core \
-    qcom/opensource/datarmnet-ext/aps \
-    qcom/opensource/datarmnet-ext/offload \
-    qcom/opensource/datarmnet-ext/shs \
-    qcom/opensource/datarmnet-ext/perf \
-    qcom/opensource/datarmnet-ext/perf_tether \
-    qcom/opensource/datarmnet-ext/sch \
-    qcom/opensource/datarmnet-ext/wlan \
-    qcom/opensource/display-drivers/msm \
-    qcom/opensource/dsp-kernel \
-    qcom/opensource/eva-kernel \
-    qcom/opensource/video-driver \
-    qcom/opensource/graphics-kernel \
-    qcom/opensource/wlan/platform \
-    qcom/opensource/wlan/qcacld-3.0/.qca6750 \
-    qcom/opensource/bt-kernel \
-    qcom/opensource/spu-kernel \
-    qcom/opensource/mm-sys-kernel/ubwcp \
-    qcom/opensource/touch-drivers \
-    nxp/opensource/driver
+include $(DEVICE_PATH)/kernel/kernel-platform.mk
 
 # Partitions
--include vendor/lineage/config/BoardConfigReservedSize.mk
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 25165824
@@ -182,17 +130,24 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_USES_METADATA_PARTITION := true
 
+# Ship prebuilt kernel modules as-is (peridot-clo reference; avoids
+# strip-time breakage on Qualcomm modules)
+BOARD_DO_NOT_STRIP_VENDOR_MODULES := true
+BOARD_DO_NOT_STRIP_VENDOR_RAMDISK_MODULES := true
+BOARD_DO_NOT_STRIP_RECOVERY_MODULES := true
+
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_dlkm system_ext vendor vendor_dlkm
 BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9122611200 # (BOARD_SUPER_PARTITION_SIZE - 4 MiB)
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
 
-BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
+# EROFS for every dynamic partition on every build variant, matching stock
+# HyperOS and Neoteric's own cnb convention (aurora sets erofs unconditionally
+# with no per-partition reserved size; peridot-clo's variant-conditional ext4
+# block is what inflated our userdebug images).
+$(foreach p, $(call to-upper, $(BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST)), \
+    $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := erofs) \
+    $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))) \
+)
 
 TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_PRODUCT := product
@@ -223,7 +178,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # Sepolicy
-include device/lineage/sepolicy/libperfmgr/sepolicy.mk
 include device/qcom/sepolicy_vndr/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
@@ -247,6 +201,11 @@ BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
+BOARD_AVB_DTBO_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_DTBO_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_DTBO_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_DTBO_ROLLBACK_INDEX_LOCATION := 4
+
 BOARD_AVB_VBMETA_SYSTEM := system system_dlkm system_ext product
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
@@ -260,9 +219,7 @@ BOARD_AVB_SYSTEM_DLKM_ADD_HASHTREE_FOOTER_ARGS += --hash_algorithm sha256
 # WiFi
 BOARD_WLAN_DEVICE := qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 # (1 STA + 1 AP) or (1 STA + 1 of (P2P or NAN)) or (2 AP) or (2 STA)
 WIFI_HAL_INTERFACE_COMBINATIONS := {{{STA}, 1}, {{AP}, 1}}, {{{STA}, 1}, {{P2P, NAN}, 1}}, {{{AP}, 2}}, {{{STA}, 2}}
 WIFI_DRIVER_DEFAULT := qca_cld3

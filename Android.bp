@@ -6,10 +6,6 @@
 soong_namespace {
     imports: [
         "hardware/google/interfaces",
-        "hardware/google/pixel/pixelstats",
-        "hardware/google/pixel/power-libperfmgr",
-        "hardware/lineage/interfaces/power-libperfmgr",
-        "hardware/qcom-caf/common/libqti-perfd-client",
         "hardware/xiaomi"
     ],
 }
@@ -35,8 +31,10 @@ install_symlink {
     symlink_target: "/vendor/etc/wifi/qca6750/WCNSS_qcom_cfg.ini",
 }
 
-mkdir {
-    name: "vendor_modem_firmware_mountpoint",
-    dir: "modem_firmware",
-    vendor: true,
+prebuilt_etc {
+    name: "peridot_compat_matrix_lineage",
+    src: "configs/vintf/compatibility_matrix.lineage.xml",
+    filename: "compatibility_matrix.lineage.xml",
+    product_specific: true,
+    relative_install_path: "vintf",
 }
