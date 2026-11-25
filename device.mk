@@ -21,20 +21,26 @@ $(call inherit-product, packages/modules/Virtualization/apex/product_packages.mk
 
 # Qualcomm
 $(call soong_config_set,rfs,mpss_firmware_symlink_target,modem_firmware)
-$(call inherit-product, hardware/qcom-caf/common/common.mk)
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
+    FILESYSTEM_TYPE_system=$(POSTINSTALL_FS_TYPE) \
     POSTINSTALL_OPTIONAL_system=true
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_vendor=true \
     POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
-    FILESYSTEM_TYPE_vendor=ext4 \
+    FILESYSTEM_TYPE_vendor=$(POSTINSTALL_FS_TYPE) \
     POSTINSTALL_OPTIONAL_vendor=true
+
+# Post-install fs matches the erofs dynamic partitions
+POSTINSTALL_FS_TYPE := erofs
+
+# DRM: expose liboemcrypto to the vendor linker namespace (peridot-clo ref)
+PRODUCT_VENDOR_LINKER_CONFIG_FRAGMENTS += \
+    $(LOCAL_PATH)/configs/linker/vendor-linker.config.json
 
 PRODUCT_PACKAGES += \
     checkpoint_gc \
@@ -79,7 +85,17 @@ PRODUCT_PACKAGES += \
     libsndcardparser \
     libvolumelistener
 
-AUDIO_HAL_DIR := hardware/qcom-caf/sm8650/audio/primary-hal
+# A17 vendor shims and compatibility libraries required by the Xiaomi blobs
+PRODUCT_PACKAGES += \
+    libaudioroute.vendor \
+    libaudioroute-v34 \
+    libbinder_shim.vendor \
+    libbase_shim \
+    libhidlbase_shim \
+    libprocessgroup_shim \
+    libstagefright_foundation-v33.vendor \
+    libstagefright_foundation.vendor \
+    libxml2.vendor
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_cliffs/audio_effects.xml \
@@ -125,12 +141,39 @@ PRODUCT_COPY_FILES += \
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
+    libgralloc.qti \
+    libgui_vendor \
+    libqdMetaData \
+    vendor.display.config@1.1 \
+    vendor.display.config@1.11.vendor \
+    vendor.display.config@2.0 \
+    vendor.display.config@2.0.vendor \
     vendor.qti.hardware.display.allocator-service \
-    vendor.qti.hardware.display.demura-service
+    vendor.qti.hardware.display.composer-service \
+    vendor.qti.hardware.display.demura-service \
+    vendor.qti.hardware.display.mapper@1.0.vendor \
+    vendor.qti.hardware.display.mapper@1.1.vendor \
+    vendor.qti.hardware.display.mapper@2.0.vendor \
+    vendor.qti.hardware.display.mapper@3.0.vendor \
+    vendor.qti.hardware.display.mapper@4.0.vendor \
+    vendor.qti.hardware.display.mapperextensions@1.3.vendor
 
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.composer3-V1-ndk.vendor \
-    vendor.qti.hardware.display.config-V11-ndk.vendor
+    vendor.qti.hardware.display.config-V1-ndk.vendor \
+    vendor.qti.hardware.display.config-V2-ndk.vendor \
+    vendor.qti.hardware.display.config-V3-ndk.vendor \
+    vendor.qti.hardware.display.config-V4-ndk.vendor \
+    vendor.qti.hardware.display.config-V5-ndk.vendor \
+    vendor.qti.hardware.display.config-V6-ndk.vendor \
+    vendor.qti.hardware.display.config-V7-ndk.vendor \
+    vendor.qti.hardware.display.config-V8-ndk.vendor \
+    vendor.qti.hardware.display.config-V9-ndk.vendor \
+    vendor.qti.hardware.display.config-V10-ndk.vendor \
+    vendor.qti.hardware.display.config-V11-ndk.vendor \
+    vendor.qti.hardware.display.demura-V1-ndk.vendor \
+    vendor.qti.hardware.display.postproc-V1-ndk.vendor
+
 
 PRODUCT_PACKAGES += \
     init.qti.display_boot.rc \
@@ -186,7 +229,7 @@ PRODUCT_PACKAGES += \
 
 # IR
 PRODUCT_PACKAGES += \
-    android.hardware.ir-service.lineage
+    android.hardware.ir-service.example
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.consumerir.xml
@@ -236,9 +279,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.hardware_keystore_V3.xml
 
-PRODUCT_SOONG_NAMESPACES += \
-    hardware/nxp/keymint/generic \
-    hardware/nxp/weaver/generic
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hal_uuid_map.xml:$(TARGET_COPY_OUT_VENDOR)/etc/hal_uuid_map_peridot.xml
@@ -259,7 +299,7 @@ $(call soong_config_set,lineage_health,fast_charge_value_super_fast_charge,2)
 
 # Media
 PRODUCT_COPY_FILES += \
-    $(AUDIO_HAL_DIR)/configs/common/codec2/media_codecs_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2_audio.xml
+    $(LOCAL_PATH)/configs/audio/codec2/media_codecs_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_c2_audio.xml
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs_cliffs_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_cliffs_v0.xml \
@@ -296,7 +336,6 @@ PRODUCT_PACKAGES += \
     ApertureOverlayPeridot \
     CarrierConfigOverlayPeridot \
     FrameworkOverlayPeridot \
-    LineageSettingsOverlayPeridot \
     NfcOverlayPeridot \
     SecureElementOverlayPeridot \
     SettingsOverlayPeridot \
@@ -304,6 +343,7 @@ PRODUCT_PACKAGES += \
     SettingsProviderOverlayPeridotRedmi \
     SystemUIOverlayPeridot \
     TelephonyOverlayPeridot \
+    LineageSettingsOverlayPeridot \
     WifiOverlayPeridot \
     WifiOverlayPeridotPOCO \
     WifiOverlayPeridotRedmi
@@ -322,7 +362,7 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power-service.lineage-libperfmgr \
+    android.hardware.power-service \
     libqti-perfd-client
 
 PRODUCT_COPY_FILES += \
@@ -339,16 +379,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/props/odm_GL.prop:$(TARGET_COPY_OUT_ODM)/etc/odm_GL.prop \
     $(LOCAL_PATH)/props/odm_IN.prop:$(TARGET_COPY_OUT_ODM)/etc/odm_IN.prop
 
-# Soong namespaces
-PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/google/interfaces \
-    hardware/google/pixel/pixelstats \
-    hardware/google/pixel/power-libperfmgr \
-    hardware/lineage/interfaces/power-libperfmgr \
-    hardware/qcom-caf/common/libqti-perfd-client \
-    hardware/xiaomi \
-    vendor/qcom/opensource/usb/etc
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -399,7 +429,6 @@ PRODUCT_PACKAGES += \
     xiaomi-telephony-stub
 
 PRODUCT_BOOT_JARS += \
-    telephony-ext \
     xiaomi-telephony-stub
 
 PRODUCT_COPY_FILES += \
@@ -485,3 +514,58 @@ $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
 # Device settings: thermal profile changer (GuidixX-style, sysfs sconfig)
 PRODUCT_PACKAGES += \
     ThermalProfiles
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH) \
+    hardware/google/interfaces \
+    hardware/google/pixel/pixelstats \
+    hardware/google/pixel/power-libperfmgr \
+    hardware/qcom-caf/common/libqti-perfd-client \
+    hardware/qcom/wlan \
+    hardware/qcom-caf/sm8650 \
+    hardware/qcom-caf/sm8650/display \
+    hardware/nxp/keymint/generic \
+    hardware/nxp/weaver/generic \
+    hardware/xiaomi \
+    vendor/qcom/opensource/commonsys/display \
+    vendor/qcom/opensource/commonsys-intf/display \
+    vendor/qcom/opensource/dataservices \
+    vendor/qcom/opensource/usb/etc
+
+# Media
+PRODUCT_PACKAGES += \
+    android.hardware.media.c2@1.2.vendor \
+    libOmxCore \
+    libcodec2_hidl@1.0.vendor \
+    libcodec2_hidl@1.1.vendor \
+    libcodec2_hidl@1.2.vendor \
+    libcodec2_soft_common.vendor \
+    libcodec2_vndk.vendor \
+    libmm-omxcore \
+    libstagefright_softomx_plugin.vendor \
+    libstagefright_softomx.vendor \
+    libsfplugin_ccodec_utils.vendor \
+    libstagefrighthw \
+    android.hardware.media.bufferpool2-V1-ndk.vendor
+
+# Fastbootd
+PRODUCT_PACKAGES += \
+    fastbootd
+
+# QTI components; core audio HAL/AGM/PAL are supplied by vendor prebuilts
+TARGET_COMMON_QTI_COMPONENTS := \
+    av \
+    bt \
+    perf \
+    telephony \
+    usb \
+    wfd \
+    wlan
+
+TARGET_USE_AIDL_QTI_BT_AUDIO := true
+TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
+
+# VINTF framework matrix fragment (health + qconfig)
+PRODUCT_PACKAGES += \
+    peridot_compat_matrix_lineage
