@@ -1,5 +1,5 @@
 # Device
-ro.product.mod_device=peridot_global
+ro.product.mod_device=peridot_in
 
 # QTI
 ro.vendor.qti.va_aosp.support=1
