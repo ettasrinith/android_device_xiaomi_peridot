@@ -1,0 +1,2 @@
+get_prop(surfaceflinger, vendor_displayfeature_prop)
+hal_client_domain(surfaceflinger, vendor_hal_qspmhal)
