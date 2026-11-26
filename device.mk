@@ -571,4 +571,4 @@ PRODUCT_PACKAGES += \
     peridot_compat_matrix_lineage
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/debug/peridot-debuglog.sh:$(TARGET_COPY_OUT_VENDOR)/bin/peridot-debuglog.sh:root:root:0755
+    $(LOCAL_PATH)/debug/peridot-debuglog.sh:$(TARGET_COPY_OUT_VENDOR)/bin/peridot-debuglog.sh:root:root:0755\n
