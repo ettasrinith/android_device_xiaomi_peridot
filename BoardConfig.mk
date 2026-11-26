@@ -110,7 +110,6 @@ BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 # required for the stock kernel's display/console path)
 BOARD_KERNEL_CMDLINE := \
     video=vfb:640x400,bpp=32,memsize=3072000 \
-    console=ttyMSM0,115200n8 \
     swinfo.fingerprint=peridot:$(NEOTERIC_VERSION) \
     mtdoops.fingerprint=peridot:$(NEOTERIC_VERSION)
 
