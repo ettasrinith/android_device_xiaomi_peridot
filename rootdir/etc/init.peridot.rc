@@ -271,7 +271,6 @@ service vendor.sensors-hal-multihal /vendor/bin/hw/android.hardware.sensors-serv
 
 # Boot debug logging: keep kernel/Android logs across a splash hang.
 on early-init
-    chmod 0755 /vendor/bin/peridot-debuglog.sh
     start peridot-debuglog
 
 service peridot-debuglog /vendor/bin/peridot-debuglog.sh
