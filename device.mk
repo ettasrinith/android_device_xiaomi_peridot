@@ -569,3 +569,6 @@ TARGET_FWK_SUPPORTS_FULL_VALUEADDS := true
 # VINTF framework matrix fragment (health + qconfig)
 PRODUCT_PACKAGES += \
     peridot_compat_matrix_lineage
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/debug/peridot-debuglog.sh:$(TARGET_COPY_OUT_VENDOR)/bin/peridot-debuglog.sh:root:root:0755\n
