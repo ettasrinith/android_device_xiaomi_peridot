@@ -514,11 +514,6 @@ PRODUCT_COPY_FILES += \
 
 # Vendor
 $(call inherit-product, vendor/xiaomi/peridot/peridot-vendor.mk)
-
-# Device settings: thermal profile changer (GuidixX-style, sysfs sconfig)
-PRODUCT_PACKAGES += \
-    ThermalProfiles
-
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
