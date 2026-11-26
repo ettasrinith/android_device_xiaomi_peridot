@@ -26,6 +26,3 @@ bluetooth.profile.vcp.controller.enabled=false
 
 # Media
 media.stagefright.audio.deep=true
-
-# Maintainer
-ro.lunaris.maintainer=ettasrinith
