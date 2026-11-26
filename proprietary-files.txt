@@ -1893,7 +1893,6 @@ vendor/lib64/liblocation_qesdk.so
 vendor/lib64/libqesdk2_0.so
 vendor/lib64/libqesdk_manager.so
 vendor/lib64/libqesdoem_query_sys.so
-vendor/lib64/libqti-qesdk-secure.so
 vendor/lib64/vendor.qti.qesdhal-impl.so
 vendor/lib64/vendor.qti.qesdhal@1.0.so
 vendor/lib64/vendor.qti.qesdhal@1.1.so
@@ -1946,16 +1945,6 @@ vendor/lib64/libsubsystem_control.so
 # QSPA
 system_ext/etc/init/qspa_system.rc
 system_ext/etc/qspa/qspa_default.rc
-
-# QSPM
-vendor/bin/vendor.qti.qspmhal-service
-vendor/etc/init/vendor.qti.qspmhal-service.rc
-vendor/etc/seccomp_policy/qspm.policy
-vendor/etc/vintf/manifest/vendor.qti.qspmhal-service.xml
-vendor/lib64/libqspm-mem-utils-vendor.so
-vendor/lib64/vendor.qti.qspmhal-V1-ndk.so
-vendor/lib64/vendor.qti.qspmhal-impl.so
-vendor/lib64/vendor.qti.qspmhal@1.0.so
 
 # RIL
 odm/etc/MESubway_prebuilt.db
@@ -2506,7 +2495,6 @@ odm/firmware/aw8697_haptic.bin
 odm/firmware/aw8697_rtp_1.bin
 
 # WiFi
-vendor/bin/cnss-daemon
 vendor/etc/init/init.vendor.wlan.rc
 vendor/etc/init/libxiaomi_qcril.rc
 vendor/lib64/libcert_parse.wpa_s.so

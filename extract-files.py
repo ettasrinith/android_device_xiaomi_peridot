@@ -26,8 +26,9 @@ from extract_utils.utils import (
 )
 
 namespace_imports = [
-    'hardware/qcom-caf/sm8650',
-    'hardware/qcom-caf/wlan',
+    'device/xiaomi/peridot',
+    'hardware/qcom/display',
+    'hardware/qcom/wlan/qcwcn',
     'hardware/xiaomi',
     'vendor/qcom/opensource/commonsys/display',
     'vendor/qcom/opensource/commonsys-intf/display',
