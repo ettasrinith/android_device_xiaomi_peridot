@@ -28,6 +28,6 @@ cc_binary {
     ],
 
     header_libs: [
-        "generated_kernel_headers",
+        "qti_kernel_headers",
     ],
 }
