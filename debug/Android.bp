@@ -1,0 +1,21 @@
+//
+// Copyright (C) 2026 Paranoid Android
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// Boot debugging: dumps logs to /metadata/peridot-debug, which survives a
+// hang or reset and can be read from recovery.
+
+prebuilt_etc {
+    name: "init.peridot.debug.rc",
+    src: "init.peridot.debug.rc",
+    sub_dir: "init",
+    system_ext_specific: true,
+}
+
+sh_binary {
+    name: "peridot-debuglog.sh",
+    src: "peridot-debuglog.sh",
+    system_ext_specific: true,
+}

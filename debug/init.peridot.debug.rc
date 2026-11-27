@@ -1,0 +1,15 @@
+#
+# Copyright (C) 2026 Paranoid Android
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+on init
+    start peridot-debuglog
+
+service peridot-debuglog /system/bin/sh /system_ext/bin/peridot-debuglog.sh
+    user root
+    group root log readproc
+    oneshot
+    disabled
+    seclabel u:r:su:s0

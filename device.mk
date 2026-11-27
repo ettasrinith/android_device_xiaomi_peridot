@@ -551,6 +551,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fastbootd
 
+# Debug (boot debugging, remove before release)
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += \
+    init.peridot.debug.rc \
+    peridot-debuglog.sh
+
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.adb.secure=0 \
+    service.adb.root=1
+endif
+
 # QTI components (audio HAL/helpers built from hardware/qcom-caf/sm8650/audio)
 TARGET_COMMON_QTI_COMPONENTS := \
     av \
