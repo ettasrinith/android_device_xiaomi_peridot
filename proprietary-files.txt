@@ -2398,11 +2398,11 @@ vendor/lib64/vendor.xiaomi.sensor.camera-V1-ndk.so
 vendor/lib64/vendor.xiaomi.sensor.citsensorservice-V1-ndk.so
 vendor/lib64/xiaomi.system.hypsys.common-V1-ndk.so
 
-# Core audio HAL/AGM/PAL prebuilts from the matching HyperOS firmware
+# Core AGM/PAL prebuilts from the matching HyperOS firmware
+# (audio.primary.pineapple and libagmclient are built from source)
 vendor/lib64/libagm.so
 vendor/lib64/libagmmixer.so
 vendor/lib64/vendor.qti.hardware.AGMIPC@1.0-impl.so
-vendor/lib64/hw/audio.primary.pineapple.so
 vendor/lib64/libar-pal.so
 vendor/lib64/libpalclient.so
 
@@ -2416,8 +2416,7 @@ vendor/lib64/vendor.qti.qspmhal-V1-ndk.so
 vendor/lib64/vendor.qti.qspmhal-impl.so
 
 
-# AGM client (libar-pal dep)
-vendor/lib64/libagmclient.so
+# AGM/PAL IPC interfaces (libagmclient is built from source)
 vendor/lib64/vendor.qti.hardware.AGMIPC@1.0.so
 vendor/lib64/vendor.qti.hardware.pal@1.0.so
 

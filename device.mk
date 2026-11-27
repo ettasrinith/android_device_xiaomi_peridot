@@ -58,7 +58,9 @@ PRODUCT_SHIPPING_API_LEVEL := $(BOARD_SHIPPING_API_LEVEL)
 $(call soong_config_set_bool, android_hardware_audio, skip_speaker_layout_channel_mask_field, true)
 
 PRODUCT_PACKAGES += \
-    android.hardware.audio.service
+    android.hardware.audio.service \
+    android.hardware.audio.common-V1-ndk \
+    vendor.qti.hardware.pal@1.0.vendor
 
 PRODUCT_PACKAGES += \
     android.hardware.audio.effect@7.0-impl \
@@ -66,10 +68,11 @@ PRODUCT_PACKAGES += \
     android.hardware.soundtrigger@2.3-impl
 
 PRODUCT_PACKAGES += \
-    audioadsprpcd \
-    audio.bluetooth.default \
+    audio.primary.pineapple \
     audio.r_submix.default \
-    audio.usb.default
+    audio.usb.default \
+    audioadsprpcd \
+    libtinycompress
 
 PRODUCT_PACKAGES += \
     lib_bt_aptx \
@@ -101,14 +104,20 @@ PRODUCT_PACKAGES += \
     libstagefright_foundation.vendor \
     libxml2.vendor
 
+AUDIO_HAL_DIR := hardware/qcom-caf/sm8650/audio
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_cliffs/audio_effects.xml \
-    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_cliffs/audio_policy_configuration.xml
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_cliffs/audio_policy_configuration.xml \
+    $(AUDIO_HAL_DIR)/configs/common/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml \
+    $(AUDIO_HAL_DIR)/configs/pineapple/mem_logger_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mem_logger_config.xml \
+    $(AUDIO_HAL_DIR)/configs/pineapple/microphone_characteristics.xml:$(TARGET_COPY_OUT_VENDOR)/etc/microphone_characteristics.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml \
-    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
@@ -116,9 +125,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
 # Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth.audio-impl
-
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
@@ -515,6 +521,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom-caf/common/libqti-perfd-client \
     hardware/qcom/wlan \
     hardware/qcom-caf/sm8650 \
+    hardware/qcom-caf/sm8650/audio \
     hardware/qcom-caf/sm8650/display \
     hardware/nxp/keymint/generic \
     hardware/nxp/weaver/generic \
@@ -544,7 +551,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fastbootd
 
-# QTI components; core audio HAL/AGM/PAL are supplied by vendor prebuilts
+# QTI components (audio HAL/helpers built from hardware/qcom-caf/sm8650/audio)
 TARGET_COMMON_QTI_COMPONENTS := \
     av \
     bt \

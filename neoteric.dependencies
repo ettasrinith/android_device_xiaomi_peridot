@@ -22,5 +22,23 @@
         "repository": "android_hardware_qcom_display",
         "target_path": "hardware/qcom-caf/sm8650/display",
         "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_hardware_qcom_audio",
+        "target_path": "hardware/qcom-caf/sm8650/audio",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_vendor_qcom_opensource_agm",
+        "target_path": "hardware/qcom-caf/sm8650/audio/agm",
+        "revision": "cnb-8650"
+    },
+    {
+        "remote": "neoteric",
+        "repository": "android_vendor_qcom_opensource_arpal-lx",
+        "target_path": "hardware/qcom-caf/sm8650/audio/primary-hal",
+        "revision": "cnb-8650"
     }
 ]
