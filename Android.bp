@@ -38,3 +38,10 @@ prebuilt_etc {
     product_specific: true,
     relative_install_path: "vintf",
 }
+
+prebuilt_hidl_interfaces {
+    name: "hidl_bgservice_interface",
+    interfaces: [
+        "vendor.xiaomi.hardware.bgservice@1.0::IBGService",
+    ],
+}
