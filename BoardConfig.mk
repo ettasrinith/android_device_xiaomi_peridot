@@ -63,9 +63,6 @@ TARGET_SCREEN_DENSITY := 480
 # Graphics
 $(call soong_config_set,libui,legacy_graphicbuffer_abi,true)
 
-# Filesystem
-TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/configs/config.fs
-
 # Hardware
 BOARD_USES_QCOM_HARDWARE := true
 
